@@ -5,44 +5,50 @@
 import React, {Component} from 'react'
 
 class Form extends Component {
+    static propTypes = {
+        onSubmit: React.PropTypes.func,
+    };
+
     constructor(props) {
         super(props);
-        this.state = {login: ''};
+        this.state = {
+            login: '',
+            password: '',
+        };
         this.loginChange = this.loginChange.bind(this);
-        this.state = {password: ''};
         this.passwordChange = this.passwordChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     loginChange(event) {
-        this.setState({login: event.target.login});
+        this.setState({login: event.target.value});
     }
 
     passwordChange(event) {
-        this.setState({password: event.target.password});
+        this.setState({password: event.target.value});
     }
 
-    handleButton () {
-        console.log({this.loginChange});
+    onSubmit() {
+        this.props.onSubmit(this.state);
     }
 
     render() {
         return (
             <div>
-                <p>login: <input
+                <p><input placeholder="Login"
             type="text"
             login={this.state.login}
             onChange={this.loginChange}
                 /> </p>
-                <p>password: <input
+                <p><input placeholder="Password"
             type="password"
             password={this.state.password}
             onChange={this.passwordChange}
                 /> </p>
-                <button onClick = {this.handleButton}>Login</button>
+                <button onClick = {this.onSubmit}>Login</button>
             </div>
         );
     }
 }
-
 
 export default Form
